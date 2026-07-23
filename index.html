@@ -7,19 +7,19 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f6f7f4;
+      --bg: #f5f8fc;
       --panel: #ffffff;
-      --ink: #1c2327;
-      --muted: #66727a;
-      --line: #dfe4df;
-      --brand: #0d6b57;
-      --brand-2: #1769aa;
-      --warn: #9a5b13;
-      --soft-green: #e7f3ee;
-      --soft-blue: #e8f1f8;
-      --soft-amber: #f7edde;
-      --soft-red: #fae9e4;
-      --shadow: 0 18px 45px rgba(27, 40, 45, 0.08);
+      --ink: #142033;
+      --muted: #627186;
+      --line: #d9e2ee;
+      --brand: #135ca8;
+      --brand-2: #1d75c9;
+      --red: #ed1c24;
+      --warn: #b71f2b;
+      --soft-blue: #e8f2ff;
+      --soft-red: #ffe8eb;
+      --soft-white: #ffffff;
+      --shadow: 0 18px 45px rgba(19, 92, 168, 0.10);
       font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
     }
 
@@ -75,7 +75,7 @@
       border-radius: 8px;
       display: grid;
       place-items: center;
-      background: var(--brand);
+      background: linear-gradient(135deg, var(--brand), var(--red));
       color: #fff;
       font-weight: 800;
       flex: 0 0 auto;
@@ -107,7 +107,7 @@
       padding: 8px 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      color: #334047;
+      color: #24364b;
       background: #fff;
       font-size: 13px;
       display: inline-flex;
@@ -130,8 +130,8 @@
     .hero {
       border-bottom: 1px solid var(--line);
       background:
-        linear-gradient(90deg, rgba(13, 107, 87, 0.08), transparent 52%),
-        linear-gradient(180deg, #ffffff, #f6f7f4);
+        linear-gradient(90deg, rgba(19, 92, 168, 0.10), transparent 48%),
+        linear-gradient(180deg, #ffffff, #f5f8fc);
     }
 
     .hero-inner {
@@ -170,7 +170,7 @@
     .hero .lead {
       margin: 18px 0 0;
       max-width: 720px;
-      color: #48545b;
+      color: #405066;
       font-size: 17px;
       line-height: 1.75;
     }
@@ -206,7 +206,7 @@
     }
 
     .home-card:hover {
-      border-color: #b8cec5;
+      border-color: #b8cce6;
       transform: translateY(-1px);
     }
 
@@ -228,9 +228,9 @@
     }
 
     .home-card.product .home-card-icon { background: var(--soft-blue); color: var(--brand-2); }
-    .home-card.profit .home-card-icon { background: var(--soft-amber); color: var(--warn); }
-    .home-card.system .home-card-icon { background: var(--soft-red); color: #a8402a; }
-    .home-card.sop .home-card-icon { background: var(--soft-green); color: var(--brand); }
+    .home-card.profit .home-card-icon { background: var(--soft-red); color: var(--red); }
+    .home-card.system .home-card-icon { background: #eef5ff; color: var(--brand); }
+    .home-card.sop .home-card-icon { background: #ffffff; color: var(--brand); border: 1px solid var(--line); }
 
     .home-card-title {
       display: block;
@@ -265,7 +265,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       background: #fff;
-      color: #334047;
+      color: #24364b;
       padding: 8px 12px;
       font: inherit;
       font-size: 14px;
@@ -345,10 +345,10 @@
       font-weight: 800;
     }
 
-    .sop .module-icon { background: var(--soft-green); color: var(--brand); }
+    .sop .module-icon { background: #ffffff; color: var(--brand); border: 1px solid var(--line); }
     .product .module-icon { background: var(--soft-blue); color: var(--brand-2); }
-    .profit .module-icon { background: var(--soft-amber); color: var(--warn); }
-    .system .module-icon { background: var(--soft-red); color: #a8402a; }
+    .profit .module-icon { background: var(--soft-red); color: var(--red); }
+    .system .module-icon { background: #eef5ff; color: var(--brand); }
 
     .product { order: 1; }
     .profit { order: 2; }
@@ -375,28 +375,28 @@
 
     .resource {
       position: relative;
-      border: 1px solid #c9d8d1;
+      border: 1px solid #c9d8ea;
       border-radius: 8px;
       padding: 15px 16px;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 14px;
       align-items: center;
-      background: #fbfdfc;
-      box-shadow: 0 8px 22px rgba(27, 40, 45, 0.05);
+      background: #fbfdff;
+      box-shadow: 0 8px 22px rgba(19, 92, 168, 0.06);
       cursor: pointer;
       transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease, background 0.16s ease;
     }
 
     .resource:hover {
       border-color: var(--brand);
-      background: #f4fbf8;
-      box-shadow: 0 12px 26px rgba(13, 107, 87, 0.12);
+      background: #f0f7ff;
+      box-shadow: 0 12px 26px rgba(19, 92, 168, 0.14);
       transform: translateY(-1px);
     }
 
     .resource:focus-visible {
-      outline: 3px solid rgba(13, 107, 87, 0.22);
+      outline: 3px solid rgba(19, 92, 168, 0.22);
       outline-offset: 2px;
     }
 
