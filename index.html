@@ -799,37 +799,15 @@
         </section>
       </div>
 
-      <section class="assistant-band" id="assistant">
-        <div class="assistant-copy">
-          <h3 data-i18n="aiTitle">AI 助手接入位</h3>
-          <p data-i18n="aiDesc1">这里预留给 Dify、Coze、FastGPT 或自建 RAG 助手。正式接入后，员工可以直接问产品信息与价格、SOP、标准检查表、分成规则和系统操作问题，AI 从资料库中检索后回答。</p>
-          <p data-i18n="aiDesc2">建议第一阶段先接产品信息与价格查询、SOP Wiki、标准检查表和门店系统订单查询/关闭订单教程；利润分成只给老板账号开放。</p>
-        </div>
-        <div class="assistant-box">
-          <div class="prompt-row" aria-label="示例问题">
-            <button class="prompt" type="button" data-i18n="promptReception">接车流程怎么做？</button>
-            <button class="prompt" type="button" data-i18n="promptBrake">刹车片价格和适配怎么查？</button>
-            <button class="prompt" type="button" data-i18n="promptProfit">利润分成在哪里看？</button>
-            <button class="prompt" type="button" data-i18n="promptSystem">门店系统怎么查询或关闭订单？</button>
-          </div>
-          <textarea id="questionBox" data-i18n-placeholder="questionPlaceholder" placeholder="输入想问的问题，例如：宝马 3 系换刹车片应该先查哪里？"></textarea>
-          <div class="actions">
-            <button class="button" type="button" id="demoAnswerBtn" data-i18n="demoAnswer">生成示例答复</button>
-            <a class="button secondary" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener" data-i18n="openKnowledge">打开知识库</a>
-          </div>
-          <div class="answer" id="answerBox" data-i18n="answerDefault">正式 AI 助手接入前，这里先作为问题收集和示例区域。接入后可替换为 AI 聊天窗口或 iframe。</div>
-        </div>
-      </section>
       </section>
     </main>
 
     <footer class="footer">
-      <strong data-i18n="footerStrong">维护建议：</strong><span data-i18n="footerText">标准检查表建议固定更新时间；利润入口建议只放在老板权限账号内；AI 助手上线前先整理 SOP、检查表、产品适配、系统教程的文件名和字段。</span>
+      <strong data-i18n="footerStrong">维护建议：</strong><span data-i18n="footerText">标准检查表建议固定更新时间；利润入口建议只放在老板权限账号内；SOP、检查表、产品适配和系统教程建议保持文件名与字段统一。</span>
     </footer>
   </div>
 
   <script>
-    const SERVAUTO_AI_EMBED_URL = "";
     const translations = {
       zh: {
         brandTitle: "ServAuto 门店资料库",
@@ -881,21 +859,8 @@
         resourceSystemTitle: "ServAuto 门店系统",
         resourceSystemDesc: "用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。",
         tagStoreSystem: "门店系统",
-        aiTitle: "AI 助手接入位",
-        aiDesc1: "这里预留给 Dify、Coze、FastGPT 或自建 RAG 助手。正式接入后，员工可以直接问产品信息与价格、SOP、标准检查表、分成规则和系统操作问题，AI 从资料库中检索后回答。",
-        aiDesc2: "建议第一阶段先接产品信息与价格查询、SOP Wiki、标准检查表和门店系统订单查询/关闭订单教程；利润分成只给老板账号开放。",
-        promptReception: "接车流程怎么做？",
-        promptBrake: "刹车片价格和适配怎么查？",
-        promptProfit: "利润分成在哪里看？",
-        promptSystem: "门店系统怎么查询或关闭订单？",
-        questionPlaceholder: "输入想问的问题，例如：宝马 3 系换刹车片应该先查哪里？",
-        demoAnswer: "生成示例答复",
-        openKnowledge: "打开知识库",
-        answerDefault: "正式 AI 助手接入前，这里先作为问题收集和示例区域。接入后可替换为 AI 聊天窗口或 iframe。",
-        answerEmpty: "先输入一个问题，或点击上方示例问题。",
-        answerDemo: "示例答复：这个问题可以先从对应板块查询。产品信息、价格和适配看“产品信息与价格查询”；SOP、培训内容、账号设置和标准检查表看“SOP 标准流程”；利润分成进入老板权限平台；订单查询和关闭订单进入 ServAuto 门店系统。",
         footerStrong: "维护建议：",
-        footerText: "标准检查表建议固定更新时间；利润入口建议只放在老板权限账号内；AI 助手上线前先整理 SOP、检查表、产品适配、系统教程的文件名和字段。",
+        footerText: "标准检查表建议固定更新时间；利润入口建议只放在老板权限账号内；SOP、检查表、产品适配和系统教程建议保持文件名与字段统一。",
         passwordPrompt: "请输入利润查询访问密码",
         passwordError: "密码错误，无法进入利润查询。"
       },
@@ -949,21 +914,8 @@
         resourceSystemTitle: "ServAuto Store System",
         resourceSystemDesc: "For order search and order closing. Operation screenshots and FAQs can be added later.",
         tagStoreSystem: "Store System",
-        aiTitle: "AI Assistant Placeholder",
-        aiDesc1: "Reserved for Dify, Coze, FastGPT, or a custom RAG assistant. Once connected, staff can ask about product info and prices, SOP, checklists, profit sharing rules, and system operations.",
-        aiDesc2: "Phase one should connect product and price search, SOP Wiki, checklists, and store-system tutorials. Profit sharing should remain owner-only.",
-        promptReception: "How should reception be handled?",
-        promptBrake: "How do I check brake pad price and fitment?",
-        promptProfit: "Where can I view profit sharing?",
-        promptSystem: "How do I search or close orders?",
-        questionPlaceholder: "Enter a question, for example: where should I check brake pads for a BMW 3 Series?",
-        demoAnswer: "Generate sample answer",
-        openKnowledge: "Open knowledge base",
-        answerDefault: "Before the AI assistant is connected, this area can be used for sample questions. Later it can be replaced with an AI chat window or iframe.",
-        answerEmpty: "Enter a question first, or click one of the sample questions above.",
-        answerDemo: "Sample answer: use the corresponding section first. Product information, prices, and fitment are under Product and Price Search. SOP, training materials, account setup, and checklists are under SOP Workflows. Profit sharing opens the owner-only platform. Order search and order closing are in the ServAuto Store System.",
         footerStrong: "Maintenance note: ",
-        footerText: "Keep the checklist update date fixed; keep profit access owner-only; before launching AI, organize filenames and fields for SOP, checklists, product fitment, and system tutorials.",
+        footerText: "Keep the checklist update date fixed; keep profit access owner-only; keep file names and fields consistent for SOP, checklists, product fitment, and system tutorials.",
         passwordPrompt: "Enter the profit search password",
         passwordError: "Incorrect password. Profit search cannot be opened."
       }
@@ -1052,27 +1004,6 @@
     const initialModule = window.location.hash.replace("#", "");
     if (moduleLabelKeys[initialModule]) {
       openModule(initialModule, false);
-    }
-
-    const assistantBox = document.querySelector(".assistant-box");
-    if (SERVAUTO_AI_EMBED_URL) {
-      assistantBox.innerHTML = `<iframe class="ai-frame" src="${SERVAUTO_AI_EMBED_URL}" title="ServAuto AI 助手" loading="lazy"></iframe>`;
-    } else {
-      document.querySelectorAll(".prompt").forEach((button) => {
-        button.addEventListener("click", () => {
-          document.getElementById("questionBox").value = button.textContent;
-        });
-      });
-
-      document.getElementById("demoAnswerBtn").addEventListener("click", () => {
-        const question = document.getElementById("questionBox").value.trim();
-        const answerBox = document.getElementById("answerBox");
-        if (!question) {
-          answerBox.textContent = t("answerEmpty");
-          return;
-        }
-        answerBox.textContent = t("answerDemo");
-      });
     }
 
     document.querySelectorAll("[data-protected-url]").forEach((link) => {
