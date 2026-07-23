@@ -927,7 +927,7 @@
         const password = window.prompt(t("passwordPrompt"));
         if (password === null) return;
         if (password.trim() === "servauto") {
-          window.open(link.dataset.protectedUrl, "_blank", "noopener");
+          window.location.href = link.dataset.protectedUrl;
         } else {
           window.alert(t("passwordError"));
         }
