@@ -418,94 +418,6 @@
       white-space: nowrap;
     }
 
-    .assistant-band {
-      margin-top: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #ffffff;
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-      overflow: hidden;
-    }
-
-    .assistant-copy {
-      padding: 22px;
-      border-right: 1px solid var(--line);
-    }
-
-    .assistant-copy h3 {
-      margin: 0;
-      font-size: 21px;
-    }
-
-    .assistant-copy p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 14px;
-    }
-
-    .assistant-box {
-      padding: 18px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      background: #fbfcfb;
-    }
-
-    .prompt-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .prompt {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 8px 10px;
-      font-size: 13px;
-      color: #334047;
-      cursor: pointer;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 92px;
-      resize: vertical;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      font: inherit;
-      font-size: 14px;
-      line-height: 1.5;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: var(--brand);
-      box-shadow: 0 0 0 3px rgba(13, 107, 87, 0.14);
-    }
-
-    .answer {
-      min-height: 78px;
-      border: 1px dashed #bfd0c8;
-      border-radius: 8px;
-      padding: 12px;
-      color: #546169;
-      background: #fff;
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    .ai-frame {
-      width: 100%;
-      min-height: 430px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-    }
-
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -565,14 +477,8 @@
 
       .hero-inner,
       .module-grid,
-      .home-grid,
-      .assistant-band {
+      .home-grid {
         grid-template-columns: 1fr;
-      }
-
-      .assistant-copy {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
       }
     }
 
