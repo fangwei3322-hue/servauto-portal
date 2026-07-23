@@ -164,6 +164,105 @@
       padding: 28px 0 48px;
     }
 
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .home-card {
+      min-height: 190px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      text-align: left;
+      font: inherit;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .home-card:hover {
+      border-color: #b8cec5;
+      transform: translateY(-1px);
+    }
+
+    .home-card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .home-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .home-card.product .home-card-icon { background: var(--soft-blue); color: var(--brand-2); }
+    .home-card.profit .home-card-icon { background: var(--soft-amber); color: var(--warn); }
+    .home-card.system .home-card-icon { background: var(--soft-red); color: #a8402a; }
+    .home-card.sop .home-card-icon { background: var(--soft-green); color: var(--brand); }
+
+    .home-card-title {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .home-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .home-card-action {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-toolbar {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .back-button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: #334047;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .detail-hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
     .section-head {
       display: flex;
       align-items: end;
@@ -188,6 +287,18 @@
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
+    }
+
+    .module-grid.is-filtered {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .module-grid.is-filtered .module {
+      display: none;
+    }
+
+    .module-grid.is-filtered .module.active {
+      display: block;
     }
 
     .module {
@@ -437,6 +548,7 @@
 
       .hero-inner,
       .module-grid,
+      .home-grid,
       .assistant-band {
         grid-template-columns: 1fr;
       }
@@ -468,6 +580,19 @@
         font-size: 32px;
       }
 
+      .home-card {
+        min-height: 150px;
+      }
+
+      .detail-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .detail-hint {
+        text-align: left;
+      }
+
       .section-head {
         align-items: flex-start;
         flex-direction: column;
@@ -487,7 +612,7 @@
   <div class="shell">
     <header class="topbar">
       <div class="topbar-inner">
-        <a class="brand" href="#top" aria-label="回到首页">
+        <a class="brand" href="#top" aria-label="回到首页" data-home-link>
           <div class="brand-mark">SA</div>
           <div>
             <h1>ServAuto 门店资料库</h1>
@@ -495,11 +620,10 @@
           </div>
         </a>
         <nav class="nav" aria-label="资料库导航">
-          <a href="#product">产品查询</a>
-          <a href="#profit">利润查询</a>
-          <a href="#system">门店系统</a>
-          <a href="#sop">SOP</a>
-          <a href="#assistant">AI 助手</a>
+          <a href="#product" data-open-module="product">产品查询</a>
+          <a href="#profit" data-open-module="profit">利润查询</a>
+          <a href="#system" data-open-module="system">门店系统</a>
+          <a href="#sop" data-open-module="sop">SOP</a>
         </nav>
       </div>
     </header>
@@ -515,6 +639,50 @@
     </section>
 
     <main>
+      <section class="home-grid" id="home" aria-label="资料库首页入口">
+        <button class="home-card product" type="button" data-open-module="product">
+          <span class="home-card-top">
+            <span class="home-card-icon">PX</span>
+            <span class="home-card-title">产品查询</span>
+          </span>
+          <p>查询产品资料、价格信息、车型适配关系和配件信息，适合前台报价与技师确认。</p>
+          <span class="home-card-action">进入产品信息与价格查询</span>
+        </button>
+
+        <button class="home-card profit" type="button" data-open-module="profit">
+          <span class="home-card-top">
+            <span class="home-card-icon">PR</span>
+            <span class="home-card-title">利润查询</span>
+          </span>
+          <p>门店老板或授权管理层查看利润分成、经营结果和相关数据，进入前需要密码。</p>
+          <span class="home-card-action">进入利润分成查询</span>
+        </button>
+
+        <button class="home-card system" type="button" data-open-module="system">
+          <span class="home-card-top">
+            <span class="home-card-icon">MS</span>
+            <span class="home-card-title">门店系统</span>
+          </span>
+          <p>进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。</p>
+          <span class="home-card-action">进入门店系统</span>
+        </button>
+
+        <button class="home-card sop" type="button" data-open-module="sop">
+          <span class="home-card-top">
+            <span class="home-card-icon">SOP</span>
+            <span class="home-card-title">SOP</span>
+          </span>
+          <p>门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。</p>
+          <span class="home-card-action">进入 SOP 标准流程</span>
+        </button>
+      </section>
+
+      <section class="module-detail hidden" id="moduleDetail" aria-live="polite">
+        <div class="detail-toolbar">
+          <button class="back-button" type="button" id="backHome">返回首页</button>
+          <p class="detail-hint" id="detailHint">选择一个入口查看对应资料。</p>
+        </div>
+
       <div class="module-grid" id="resources">
         <section class="module product" id="product" data-keywords="产品查询 产品信息 价格查询 配件适配 适配">
           <div class="module-header">
@@ -634,6 +802,7 @@
           <div class="answer" id="answerBox">正式 AI 助手接入前，这里先作为问题收集和示例区域。接入后可替换为 AI 聊天窗口或 iframe。</div>
         </div>
       </section>
+      </section>
     </main>
 
     <footer class="footer">
@@ -643,6 +812,60 @@
 
   <script>
     const SERVAUTO_AI_EMBED_URL = "";
+    const homeView = document.getElementById("home");
+    const moduleDetail = document.getElementById("moduleDetail");
+    const moduleGrid = document.getElementById("resources");
+    const detailHint = document.getElementById("detailHint");
+    const moduleLabels = {
+      product: "产品信息与价格查询",
+      profit: "利润分成查询",
+      system: "门店系统使用",
+      sop: "SOP 标准流程"
+    };
+
+    function openModule(moduleId, updateHash = true) {
+      const module = document.getElementById(moduleId);
+      if (!module || !moduleLabels[moduleId]) return;
+      homeView.classList.add("hidden");
+      moduleDetail.classList.remove("hidden");
+      moduleGrid.classList.add("is-filtered");
+      document.querySelectorAll(".module").forEach((item) => item.classList.remove("active"));
+      module.classList.add("active");
+      detailHint.textContent = moduleLabels[moduleId];
+      if (updateHash) history.replaceState(null, "", `#${moduleId}`);
+      moduleDetail.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function showHome(updateHash = true) {
+      moduleDetail.classList.add("hidden");
+      homeView.classList.remove("hidden");
+      moduleGrid.classList.remove("is-filtered");
+      document.querySelectorAll(".module").forEach((item) => item.classList.remove("active"));
+      detailHint.textContent = "选择一个入口查看对应资料。";
+      if (updateHash) history.replaceState(null, "", "#top");
+      homeView.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll("[data-open-module]").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModule(item.dataset.openModule);
+      });
+    });
+
+    document.getElementById("backHome").addEventListener("click", () => showHome());
+
+    document.querySelectorAll("[data-home-link]").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        showHome();
+      });
+    });
+
+    const initialModule = window.location.hash.replace("#", "");
+    if (moduleLabels[initialModule]) {
+      openModule(initialModule, false);
+    }
 
     const assistantBox = document.querySelector(".assistant-box");
     if (SERVAUTO_AI_EMBED_URL) {
