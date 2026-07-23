@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "servauto-portal-git",
+  "compatibility_date": "2026-07-23",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "single-page-application"
+  }
+}
