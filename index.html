@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServAuto 门店资料库</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f4;
+      --panel: #ffffff;
+      --ink: #1c2327;
+      --muted: #66727a;
+      --line: #dfe4df;
+      --brand: #0d6b57;
+      --brand-2: #1769aa;
+      --warn: #9a5b13;
+      --soft-green: #e7f3ee;
+      --soft-blue: #e8f1f8;
+      --soft-amber: #f7edde;
+      --soft-red: #fae9e4;
+      --shadow: 0 18px 45px rgba(27, 40, 45, 0.08);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #334047;
+      background: #fff;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(13, 107, 87, 0.08), transparent 52%),
+        linear-gradient(180deg, #ffffff, #f6f7f4);
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 34px;
+      display: block;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.08;
+      font-weight: 850;
+    }
+
+    .hero .lead {
+      margin: 18px 0 0;
+      max-width: 720px;
+      color: #48545b;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 22px 0 14px;
+    }
+
+    .section-head h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .module {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .module-header {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .module-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .sop .module-icon { background: var(--soft-green); color: var(--brand); }
+    .product .module-icon { background: var(--soft-blue); color: var(--brand-2); }
+    .profit .module-icon { background: var(--soft-amber); color: var(--warn); }
+    .system .module-icon { background: var(--soft-red); color: #a8402a; }
+
+    .product { order: 1; }
+    .profit { order: 2; }
+    .system { order: 3; }
+    .sop { order: 4; }
+
+    .module h4 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .module .desc {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .link-list {
+      padding: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .resource {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+    }
+
+    .resource:hover {
+      border-color: #c8d8d1;
+      background: #fbfcfb;
+    }
+
+    .resource-title {
+      min-width: 0;
+    }
+
+    .resource-title strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .resource-title span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .tag {
+      min-height: 26px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      color: #4d5960;
+      background: #f8faf8;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .assistant-band {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+      overflow: hidden;
+    }
+
+    .assistant-copy {
+      padding: 22px;
+      border-right: 1px solid var(--line);
+    }
+
+    .assistant-copy h3 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .assistant-copy p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .assistant-box {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      background: #fbfcfb;
+    }
+
+    .prompt-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .prompt {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px 10px;
+      font-size: 13px;
+      color: #334047;
+      cursor: pointer;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 92px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      font: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(13, 107, 87, 0.14);
+    }
+
+    .answer {
+      min-height: 78px;
+      border: 1px dashed #bfd0c8;
+      border-radius: 8px;
+      padding: 12px;
+      color: #546169;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .ai-frame {
+      width: 100%;
+      min-height: 430px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      min-height: 40px;
+      padding: 9px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--brand);
+      background: var(--brand);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--brand);
+    }
+
+    .footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 20px 0 34px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 880px) {
+      .topbar {
+        position: static;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-inner,
+      .module-grid,
+      .assistant-band {
+        grid-template-columns: 1fr;
+      }
+
+      .assistant-copy {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar-inner,
+      .hero-inner,
+      main,
+      .footer {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .brand h1,
+      .brand p {
+        white-space: normal;
+      }
+
+      .hero-inner {
+        padding-top: 28px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .resource {
+        grid-template-columns: 1fr;
+      }
+
+      .tag {
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#top" aria-label="回到首页">
+          <div class="brand-mark">SA</div>
+          <div>
+            <h1>ServAuto 门店资料库</h1>
+          <p>产品信息与价格查询、SOP、利润查询、门店系统入口</p>
+          </div>
+        </a>
+        <nav class="nav" aria-label="资料库导航">
+          <a href="#product">产品查询</a>
+          <a href="#profit">利润查询</a>
+          <a href="#system">门店系统</a>
+          <a href="#sop">SOP</a>
+          <a href="#assistant">AI 助手</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">统一入口 / 手机与电脑可用</p>
+          <h2>把门店资料、价格查询和经营工具放到一个链接里。</h2>
+          <p class="lead">门店员工从这里查产品信息与价格、标准流程、标准检查表、系统入口；老板和管理层从这里查看利润分成。后续可把 AI 助手接入 SOP、表格和系统手册，让员工直接提问拿答案。</p>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <div class="module-grid" id="resources">
+        <section class="module product" id="product" data-keywords="产品查询 产品信息 价格查询 配件适配 适配">
+          <div class="module-header">
+            <div class="module-icon">PX</div>
+            <div>
+              <h4>产品信息与价格查询</h4>
+              <p class="desc">用于前台和技师查询产品资料、价格信息、车型适配关系和配件信息。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="http://servauto-hyperdrive.platform.servauto.com.my/" target="_blank" rel="noopener" data-keywords="产品信息 价格查询 配件适配 查询 车型">
+              <span class="resource-title"><strong>产品信息与价格查询</strong><span>查询产品资料、价格、适配关系和车型对应配件，适合前台与技师使用。</span></span>
+              <span class="tag">系统</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module sop" id="sop" data-keywords="sop 标准流程 标准检查表 检查表 培训 课件 wiki 知识库">
+          <div class="module-header">
+            <div class="module-icon">SOP</div>
+            <div>
+              <h4>SOP 标准流程</h4>
+              <p class="desc">用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener" data-keywords="Tiktok Account setup wiki 账号 设置 sop">
+              <span class="resource-title"><strong>Tiktok Account setup</strong><span>用于 TikTok 账号设置相关流程和资料查看。</span></span>
+              <span class="tag">Lark Wiki</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Sdhzwftqkiyk2HkvYKvlXipZgyb?sheet=333b41" target="_blank" rel="noopener" data-keywords="Service 20 Checklist 标准检查表 检查表 sop 表格 wiki">
+              <span class="resource-title"><strong>Service 20 Checklist</strong><span>标准 20 项检查表，用于门店逐项检查、记录和复核。</span></span>
+              <span class="tag">Lark Wiki</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Dmv5s9ruVlA2KAdfO2Wl2nCMg5g" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Tint Technicians Front Desk Staff slides sop 培训 话术 前台 技师 隔热膜">
+              <span class="resource-title"><strong>Standardized Communication Scripts for Tint Technicians & Front Desk Staff</strong><span>隔热膜技师与前台员工的标准沟通话术。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/LbZ8sePi2lrqAeduifGlZM2Bg4r" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Service Technicians Front Desk Staff slides sop 培训 话术 前台 维修技师">
+              <span class="resource-title"><strong>Standardized Communication Scripts for Service Technicians & Front Desk Staff</strong><span>维修技师与前台员工的标准沟通话术。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Q4yNsi7mVlT6uodxVWtl3F2JgHb" target="_blank" rel="noopener" data-keywords="ServAuto SOP Service Oil Change slides sop 保养 换油 机油">
+              <span class="resource-title"><strong>ServAuto SOP Service Oil Change</strong><span>机油保养服务的标准作业流程。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/R4Plst9l5lHrH1dnuxQls8pEgCe" target="_blank" rel="noopener" data-keywords="ServAuto SOP Tint Construction Process slides sop 贴膜 隔热膜 施工流程">
+              <span class="resource-title"><strong>ServAuto SOP Tint Construction Process</strong><span>隔热膜施工流程与标准操作要求。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/YrousN946lZ6T7dezdnl2b8xgIb" target="_blank" rel="noopener" data-keywords="6S Three No Training slides sop 培训 6s 三不">
+              <span class="resource-title"><strong>6S / Three-No Training</strong><span>门店 6S 与“三不”基础培训。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/ZieOsSpxElf3ogdZdD6lGDjsgrg" target="_blank" rel="noopener" data-keywords="6S Three-No Grounding Regulation Training slides sop 培训 6s 三不 落地规范">
+              <span class="resource-title"><strong>6S and Three-No Grounding Regulation Training</strong><span>6S 与“三不”落地规范培训。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/RpAbsYzDGlh0Pxdkdtrlfj7kgPQ" target="_blank" rel="noopener" data-keywords="ServAuto Meeting Requirements slides sop 会议 要求">
+              <span class="resource-title"><strong>ServAuto Meeting Requirements</strong><span>门店会议标准与执行要求。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module profit" id="profit" data-keywords="利润查询 利润分成 老板 分成 经营 毛利">
+          <div class="module-header">
+            <div class="module-icon">PR</div>
+            <div>
+              <h4>利润分成查询</h4>
+              <p class="desc">用于老板或授权管理层查看门店利润、分成规则和经营结果。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="#profit" data-protected-url="http://profit-sharing.platform.servauto.com.my/" data-keywords="利润 分成 老板 查询 密码">
+              <span class="resource-title"><strong>利润分成平台</strong><span>仅限门店老板查看。进入前需要输入访问密码。</span></span>
+              <span class="tag">需密码</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module system" id="system" data-keywords="门店系统 使用 订单查询 关闭订单 订单">
+          <div class="module-header">
+            <div class="module-icon">MS</div>
+            <div>
+              <h4>门店系统使用</h4>
+              <p class="desc">用于进入门店系统查询订单，以及完成需要关闭的订单。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="https://store.servauto.com.my/" target="_blank" rel="noopener" data-keywords="门店系统 store 订单查询 关闭订单 订单">
+              <span class="resource-title"><strong>ServAuto 门店系统</strong><span>用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。</span></span>
+              <span class="tag">门店系统</span>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <section class="assistant-band" id="assistant">
+        <div class="assistant-copy">
+          <h3>AI 助手接入位</h3>
+          <p>这里预留给 Dify、Coze、FastGPT 或自建 RAG 助手。正式接入后，员工可以直接问产品信息与价格、SOP、标准检查表、分成规则和系统操作问题，AI 从资料库中检索后回答。</p>
+          <p>建议第一阶段先接产品信息与价格查询、SOP Wiki、标准检查表和门店系统订单查询/关闭订单教程；利润分成只给老板账号开放。</p>
+        </div>
+        <div class="assistant-box">
+          <div class="prompt-row" aria-label="示例问题">
+            <button class="prompt" type="button">接车流程怎么做？</button>
+            <button class="prompt" type="button">刹车片价格和适配怎么查？</button>
+            <button class="prompt" type="button">利润分成在哪里看？</button>
+            <button class="prompt" type="button">门店系统怎么查询或关闭订单？</button>
+          </div>
+          <textarea id="questionBox" placeholder="输入想问的问题，例如：宝马 3 系换刹车片应该先查哪里？"></textarea>
+          <div class="actions">
+            <button class="button" type="button" id="demoAnswerBtn">生成示例答复</button>
+            <a class="button secondary" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener">打开知识库</a>
+          </div>
+          <div class="answer" id="answerBox">正式 AI 助手接入前，这里先作为问题收集和示例区域。接入后可替换为 AI 聊天窗口或 iframe。</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <strong>维护建议：</strong>标准检查表建议固定更新时间；利润入口建议只放在老板权限账号内；AI 助手上线前先整理 SOP、检查表、产品适配、系统教程的文件名和字段。
+    </footer>
+  </div>
+
+  <script>
+    const SERVAUTO_AI_EMBED_URL = "";
+
+    const assistantBox = document.querySelector(".assistant-box");
+    if (SERVAUTO_AI_EMBED_URL) {
+      assistantBox.innerHTML = `<iframe class="ai-frame" src="${SERVAUTO_AI_EMBED_URL}" title="ServAuto AI 助手" loading="lazy"></iframe>`;
+    } else {
+      document.querySelectorAll(".prompt").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.getElementById("questionBox").value = button.textContent;
+        });
+      });
+
+      document.getElementById("demoAnswerBtn").addEventListener("click", () => {
+        const question = document.getElementById("questionBox").value.trim();
+        const answerBox = document.getElementById("answerBox");
+        if (!question) {
+          answerBox.textContent = "先输入一个问题，或点击上方示例问题。";
+          return;
+        }
+        answerBox.textContent = "示例答复：这个问题可以先从对应板块查询。产品信息、价格和适配看“产品信息与价格查询”；SOP、培训内容、账号设置和标准检查表看“SOP 标准流程”；利润分成进入老板权限平台；订单查询和关闭订单进入 ServAuto 门店系统。";
+      });
+    }
+
+    document.querySelectorAll("[data-protected-url]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const password = window.prompt("请输入利润查询访问密码");
+        if (password === null) return;
+        if (password.trim() === "servauto") {
+          window.open(link.dataset.protectedUrl, "_blank", "noopener");
+        } else {
+          window.alert("密码错误，无法进入利润查询。");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
