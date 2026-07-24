@@ -603,7 +603,7 @@
             <span class="home-card-icon">MS</span>
             <span class="home-card-title" data-i18n="homeSystemTitle">门店系统</span>
           </span>
-          <p data-i18n="homeSystemDesc">进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。</p>
+          <p data-i18n="homeSystemDesc">进入 ServAuto 门店系统查询和关闭订单，也可通过采购商城进行货品下单并追踪运单情况。</p>
           <span class="home-card-action" data-i18n="homeSystemAction">进入门店系统</span>
         </button>
 
@@ -704,18 +704,22 @@
           </div>
         </section>
 
-        <section class="module system" id="system" data-keywords="门店系统 使用 订单查询 关闭订单 订单">
+        <section class="module system" id="system" data-keywords="门店系统 使用 订单查询 关闭订单 订单 采购系统 采购商城 下单 运单 物流">
           <div class="module-header">
             <div class="module-icon">MS</div>
             <div>
               <h4 data-i18n="moduleSystemTitle">门店系统使用</h4>
-              <p class="desc" data-i18n="moduleSystemDesc">用于进入门店系统查询订单，以及完成需要关闭的订单。</p>
+              <p class="desc" data-i18n="moduleSystemDesc">用于进入门店系统查询与关闭订单，也可通过采购商城进行货品下单和追踪运单情况。</p>
             </div>
           </div>
           <div class="link-list">
             <a class="resource" href="https://store.servauto.com.my/" target="_blank" rel="noopener" data-keywords="门店系统 store 订单查询 关闭订单 订单">
-              <span class="resource-title"><strong data-i18n="resourceSystemTitle">ServAuto 门店系统</strong><span data-i18n="resourceSystemDesc">用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。</span></span>
+              <span class="resource-title"><strong data-i18n="resourceSystemTitle">ServAuto 门店系统</strong><span data-i18n="resourceSystemDesc">用于订单查询和关闭订单，方便门店处理日常订单状态。</span></span>
               <span class="tag" data-i18n="tagStoreSystem">门店系统</span>
+            </a>
+            <a class="resource" href="https://sa-procurement.pages.dev/store/#/shop" target="_blank" rel="noopener" data-keywords="门店采购系统 采购商城 下单 货品 运单 物流 追踪 procurement shop">
+              <span class="resource-title"><strong data-i18n="resourceProcurementTitle">门店采购系统</strong><span data-i18n="resourceProcurementDesc">通过采购商城进行货品下单，并追踪货品运单和物流情况。</span></span>
+              <span class="tag" data-i18n="tagProcurement">采购商城</span>
             </a>
           </div>
         </section>
@@ -745,7 +749,7 @@
         homeProfitDesc: "门店老板或授权管理层查看利润分成、经营结果和相关数据，进入前需要密码。",
         homeProfitAction: "进入利润分成查询",
         homeSystemTitle: "门店系统",
-        homeSystemDesc: "进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。",
+        homeSystemDesc: "进入 ServAuto 门店系统查询和关闭订单，也可通过采购商城进行货品下单并追踪运单情况。",
         homeSystemAction: "进入门店系统",
         homeSopTitle: "标准作业 SOP",
         homeSopDesc: "门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
@@ -774,10 +778,13 @@
         resourceProfitDesc: "仅限门店老板查看。进入前需要输入访问密码。",
         tagPassword: "需密码",
         moduleSystemTitle: "门店系统使用",
-        moduleSystemDesc: "用于进入门店系统查询订单，以及完成需要关闭的订单。",
+        moduleSystemDesc: "用于进入门店系统查询与关闭订单，也可通过采购商城进行货品下单和追踪运单情况。",
         resourceSystemTitle: "ServAuto 门店系统",
-        resourceSystemDesc: "用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。",
+        resourceSystemDesc: "用于订单查询和关闭订单，方便门店处理日常订单状态。",
         tagStoreSystem: "门店系统",
+        resourceProcurementTitle: "门店采购系统",
+        resourceProcurementDesc: "通过采购商城进行货品下单，并追踪货品运单和物流情况。",
+        tagProcurement: "采购商城",
         passwordPrompt: "请输入利润查询访问密码",
         passwordError: "密码错误，无法进入利润查询。"
       },
@@ -798,7 +805,7 @@
         homeProfitDesc: "For store owners or authorized managers to view profit sharing, operating results, and related data. Password required.",
         homeProfitAction: "Open profit sharing search",
         homeSystemTitle: "Store System",
-        homeSystemDesc: "Access the ServAuto store system for order search and order closing.",
+        homeSystemDesc: "Access the ServAuto store system to search and close orders, and use the procurement mall to place product orders and track shipments.",
         homeSystemAction: "Open store system",
         homeSopTitle: "Standard Operation SOP",
         homeSopDesc: "Unified processes for store training, standardized reception, standardized construction, standardized checks, and hygiene standards.",
@@ -827,10 +834,13 @@
         resourceProfitDesc: "For store owners only. Access password is required before entry.",
         tagPassword: "Password",
         moduleSystemTitle: "Store System",
-        moduleSystemDesc: "Access the store system to search orders and close orders.",
+        moduleSystemDesc: "Access the store system to search and close orders, and use the procurement mall to place product orders and track shipment status.",
         resourceSystemTitle: "ServAuto Store System",
-        resourceSystemDesc: "For order search and order closing. Operation screenshots and FAQs can be added later.",
+        resourceSystemDesc: "For order search and order closing, helping stores manage daily order status.",
         tagStoreSystem: "Store System",
+        resourceProcurementTitle: "Store Procurement System",
+        resourceProcurementDesc: "Place product orders through the procurement mall and track shipment and logistics status.",
+        tagProcurement: "Procurement Mall",
         passwordPrompt: "Enter the profit search password",
         passwordError: "Incorrect password. Profit search cannot be opened."
       }
