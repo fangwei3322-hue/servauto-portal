@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServAuto 门店资料库</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f8fc;
+      --panel: #ffffff;
+      --ink: #142033;
+      --muted: #627186;
+      --line: #d9e2ee;
+      --brand: #135ca8;
+      --brand-2: #1d75c9;
+      --red: #ed1c24;
+      --warn: #b71f2b;
+      --soft-blue: #e8f2ff;
+      --soft-red: #ffe8eb;
+      --soft-white: #ffffff;
+      --shadow: 0 18px 45px rgba(19, 92, 168, 0.10);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--red));
+      color: #fff;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #24364b;
+      background: #fff;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .lang-toggle {
+      min-height: 36px;
+      padding: 8px 12px;
+      border: 1px solid var(--brand);
+      border-radius: 8px;
+      color: var(--brand);
+      background: #fff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(19, 92, 168, 0.10), transparent 48%),
+        linear-gradient(180deg, #ffffff, #f5f8fc);
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0 34px;
+      display: block;
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero h2 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.08;
+      font-weight: 850;
+    }
+
+    .hero-slogan {
+      color: #e91c2a;
+    }
+
+    .hero .lead {
+      margin: 18px 0 0;
+      max-width: 720px;
+      color: #405066;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .home-card {
+      min-height: 190px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      text-align: left;
+      font: inherit;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .home-card:hover {
+      border-color: #b8cce6;
+      transform: translateY(-1px);
+    }
+
+    .home-card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .home-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .home-card.product .home-card-icon { background: var(--soft-blue); color: var(--brand-2); }
+    .home-card.profit .home-card-icon { background: var(--soft-red); color: var(--red); }
+    .home-card.system .home-card-icon { background: #eef5ff; color: var(--brand); }
+    .home-card.sop .home-card-icon { background: #ffffff; color: var(--brand); border: 1px solid var(--line); }
+
+    .home-card-title {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .home-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .home-card-action {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-toolbar {
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .back-button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: #24364b;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .detail-hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 22px 0 14px;
+    }
+
+    .section-head h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .module-grid.is-filtered {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .module-grid.is-filtered .module {
+      display: none;
+    }
+
+    .module-grid.is-filtered .module.active {
+      display: block;
+    }
+
+    .module {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .module-header {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .module-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .sop .module-icon { background: #ffffff; color: var(--brand); border: 1px solid var(--line); }
+    .product .module-icon { background: var(--soft-blue); color: var(--brand-2); }
+    .profit .module-icon { background: var(--soft-red); color: var(--red); }
+    .system .module-icon { background: #eef5ff; color: var(--brand); }
+
+    .product { order: 1; }
+    .profit { order: 2; }
+    .system { order: 3; }
+    .sop { order: 4; }
+
+    .module h4 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .module .desc {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .link-list {
+      padding: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .resource {
+      position: relative;
+      border: 1px solid #c9d8ea;
+      border-radius: 8px;
+      padding: 15px 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      background: #fbfdff;
+      box-shadow: 0 8px 22px rgba(19, 92, 168, 0.06);
+      cursor: pointer;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease, background 0.16s ease;
+    }
+
+    .resource:hover {
+      border-color: var(--brand);
+      background: #f0f7ff;
+      box-shadow: 0 12px 26px rgba(19, 92, 168, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .resource:focus-visible {
+      outline: 3px solid rgba(19, 92, 168, 0.22);
+      outline-offset: 2px;
+    }
+
+    .resource-title {
+      min-width: 0;
+    }
+
+    .resource-title strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .resource-title span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tag {
+      min-height: 26px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      color: var(--brand);
+      background: #ffffff;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag::after {
+      content: " ->";
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      min-height: 40px;
+      padding: 9px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--brand);
+      background: var(--brand);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--brand);
+    }
+
+    .footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 20px 0 34px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 880px) {
+      .topbar {
+        position: static;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-inner,
+      .module-grid,
+      .home-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar-inner,
+      .hero-inner,
+      main,
+      .footer {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .brand h1,
+      .brand p {
+        white-space: normal;
+      }
+
+      .hero-inner {
+        padding-top: 28px;
+      }
+
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .home-card {
+        min-height: 150px;
+      }
+
+      .detail-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .detail-hint {
+        text-align: left;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .resource {
+        grid-template-columns: 1fr;
+      }
+
+      .tag {
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#top" aria-label="回到首页" data-home-link>
+          <div class="brand-mark">SA</div>
+          <div>
+            <h1 data-i18n="brandTitle">ServAuto 门店资料库</h1>
+            <p data-i18n="brandSubtitle">产品查询、利润查询、门店系统、SOP</p>
+          </div>
+        </a>
+        <nav class="nav" aria-label="资料库导航">
+          <a href="#product" data-open-module="product" data-i18n="navProduct">产品查询</a>
+          <a href="#profit" data-open-module="profit" data-i18n="navProfit">利润查询</a>
+          <a href="#system" data-open-module="system" data-i18n="navSystem">门店系统</a>
+          <a href="#sop" data-open-module="sop" data-i18n="navSop">SOP</a>
+          <button class="lang-toggle" type="button" id="langToggle">中文</button>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="heroEyebrow">ServAuto 门店资料库</p>
+          <h2 class="hero-slogan" data-i18n="heroSlogan">Your Neighbourhood Auto Care Expert</h2>
+          <p class="lead" data-i18n="heroLead">产品查询、利润查询、门店系统和 SOP 的统一入口。</p>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section class="home-grid" id="home" aria-label="资料库首页入口">
+        <button class="home-card product" type="button" data-open-module="product">
+          <span class="home-card-top">
+            <span class="home-card-icon">PX</span>
+            <span class="home-card-title" data-i18n="homeProductTitle">产品查询</span>
+          </span>
+          <p data-i18n="homeProductDesc">查询产品资料、价格信息、车型适配关系和配件信息，适合前台报价与技师确认。</p>
+          <span class="home-card-action" data-i18n="homeProductAction">进入产品信息与价格查询</span>
+        </button>
+
+        <button class="home-card profit" type="button" data-open-module="profit">
+          <span class="home-card-top">
+            <span class="home-card-icon">PR</span>
+            <span class="home-card-title" data-i18n="homeProfitTitle">利润查询</span>
+          </span>
+          <p data-i18n="homeProfitDesc">门店老板或授权管理层查看利润分成、经营结果和相关数据，进入前需要密码。</p>
+          <span class="home-card-action" data-i18n="homeProfitAction">进入利润分成查询</span>
+        </button>
+
+        <button class="home-card system" type="button" data-open-module="system">
+          <span class="home-card-top">
+            <span class="home-card-icon">MS</span>
+            <span class="home-card-title" data-i18n="homeSystemTitle">门店系统</span>
+          </span>
+          <p data-i18n="homeSystemDesc">进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。</p>
+          <span class="home-card-action" data-i18n="homeSystemAction">进入门店系统</span>
+        </button>
+
+        <button class="home-card sop" type="button" data-open-module="sop">
+          <span class="home-card-top">
+            <span class="home-card-icon">SOP</span>
+            <span class="home-card-title" data-i18n="homeSopTitle">SOP</span>
+          </span>
+          <p data-i18n="homeSopDesc">门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。</p>
+          <span class="home-card-action" data-i18n="homeSopAction">Open Standard Operation SOP</span>
+        </button>
+      </section>
+
+      <section class="module-detail hidden" id="moduleDetail" aria-live="polite">
+        <div class="detail-toolbar">
+          <button class="back-button" type="button" id="backHome" data-i18n="backHome">返回首页</button>
+          <p class="detail-hint" id="detailHint" data-i18n="detailDefault">选择一个入口查看对应资料。</p>
+        </div>
+
+      <div class="module-grid" id="resources">
+        <section class="module product" id="product" data-keywords="产品查询 产品信息 价格查询 配件适配 适配">
+          <div class="module-header">
+            <div class="module-icon">PX</div>
+            <div>
+              <h4 data-i18n="moduleProductTitle">产品信息与价格查询</h4>
+              <p class="desc" data-i18n="moduleProductDesc">用于前台和技师查询产品资料、价格信息、车型适配关系和配件信息。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="http://servauto-hyperdrive.platform.servauto.com.my/" target="_blank" rel="noopener" data-keywords="产品信息 价格查询 配件适配 查询 车型">
+              <span class="resource-title"><strong data-i18n="resourceProductTitle">产品信息与价格查询</strong><span data-i18n="resourceProductDesc">查询产品资料、价格、适配关系和车型对应配件，适合前台与技师使用。</span></span>
+              <span class="tag" data-i18n="tagSystem">系统</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module sop" id="sop" data-keywords="sop 标准流程 标准检查表 检查表 培训 课件 wiki 知识库">
+          <div class="module-header">
+            <div class="module-icon">SOP</div>
+            <div>
+              <h4 data-i18n="moduleSopTitle">Standard Operation SOP</h4>
+              <p class="desc" data-i18n="moduleSopDesc">用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener" data-keywords="Tiktok Account setup wiki 账号 设置 sop">
+              <span class="resource-title"><strong>Tiktok Account setup</strong><span data-i18n="resourceTiktokDesc">用于 TikTok 账号设置相关流程和资料查看。</span></span>
+              <span class="tag">Lark Wiki</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Sdhzwftqkiyk2HkvYKvlXipZgyb?sheet=333b41" target="_blank" rel="noopener" data-keywords="checklist-sp/Tint 标准检查表 检查表 sop 表格 wiki">
+              <span class="resource-title"><strong>checklist-sp/Tint</strong><span data-i18n="resourceChecklistDesc">标准 20 项检查表，用于门店逐项检查、记录和复核。</span></span>
+              <span class="tag">Lark Wiki</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Dmv5s9ruVlA2KAdfO2Wl2nCMg5g" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Tint Technicians Front Desk Staff slides sop 培训 话术 前台 技师 隔热膜">
+              <span class="resource-title"><strong>Standardized Communication Scripts for Tint Technicians & Front Desk Staff</strong><span data-i18n="resourceTintScriptDesc">隔热膜技师与前台员工的标准沟通话术。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/LbZ8sePi2lrqAeduifGlZM2Bg4r" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Service Technicians Front Desk Staff slides sop 培训 话术 前台 维修技师">
+              <span class="resource-title"><strong>Standardized Communication Scripts for Service Technicians & Front Desk Staff</strong><span data-i18n="resourceServiceScriptDesc">维修技师与前台员工的标准沟通话术。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Q4yNsi7mVlT6uodxVWtl3F2JgHb" target="_blank" rel="noopener" data-keywords="ServAuto SOP Service Oil Change slides sop 保养 换油 机油">
+              <span class="resource-title"><strong>ServAuto SOP Service Oil Change</strong><span data-i18n="resourceOilChangeDesc">机油保养服务的标准作业流程。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/R4Plst9l5lHrH1dnuxQls8pEgCe" target="_blank" rel="noopener" data-keywords="ServAuto SOP Tint Construction Process slides sop 贴膜 隔热膜 施工流程">
+              <span class="resource-title"><strong>ServAuto SOP Tint Construction Process</strong><span data-i18n="resourceTintProcessDesc">隔热膜施工流程与标准操作要求。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/YrousN946lZ6T7dezdnl2b8xgIb" target="_blank" rel="noopener" data-keywords="6S Three No Training slides sop 培训 6s 三不">
+              <span class="resource-title"><strong>6S / Three-No Training</strong><span data-i18n="resource6sTrainingDesc">门店 6S 与“三不”基础培训。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/ZieOsSpxElf3ogdZdD6lGDjsgrg" target="_blank" rel="noopener" data-keywords="6S Three-No Grounding Regulation Training slides sop 培训 6s 三不 落地规范">
+              <span class="resource-title"><strong>6S and Three-No Grounding Regulation Training</strong><span data-i18n="resource6sGroundingDesc">6S 与“三不”落地规范培训。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+            <a class="resource" href="https://servauto.sg.larksuite.com/slides/RpAbsYzDGlh0Pxdkdtrlfj7kgPQ" target="_blank" rel="noopener" data-keywords="ServAuto Meeting Requirements slides sop 会议 要求">
+              <span class="resource-title"><strong>ServAuto Meeting Requirements</strong><span data-i18n="resourceMeetingDesc">门店会议标准与执行要求。</span></span>
+              <span class="tag">Slides</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module profit" id="profit" data-keywords="利润查询 利润分成 老板 分成 经营 毛利">
+          <div class="module-header">
+            <div class="module-icon">PR</div>
+            <div>
+              <h4 data-i18n="moduleProfitTitle">利润分成查询</h4>
+              <p class="desc" data-i18n="moduleProfitDesc">用于老板或授权管理层查看门店利润、分成规则和经营结果。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="#profit" data-protected-url="http://profit-sharing.platform.servauto.com.my/" data-keywords="利润 分成 老板 查询 密码">
+              <span class="resource-title"><strong data-i18n="resourceProfitTitle">利润分成平台</strong><span data-i18n="resourceProfitDesc">仅限门店老板查看。进入前需要输入访问密码。</span></span>
+              <span class="tag" data-i18n="tagPassword">需密码</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="module system" id="system" data-keywords="门店系统 使用 订单查询 关闭订单 订单">
+          <div class="module-header">
+            <div class="module-icon">MS</div>
+            <div>
+              <h4 data-i18n="moduleSystemTitle">门店系统使用</h4>
+              <p class="desc" data-i18n="moduleSystemDesc">用于进入门店系统查询订单，以及完成需要关闭的订单。</p>
+            </div>
+          </div>
+          <div class="link-list">
+            <a class="resource" href="https://store.servauto.com.my/" target="_blank" rel="noopener" data-keywords="门店系统 store 订单查询 关闭订单 订单">
+              <span class="resource-title"><strong data-i18n="resourceSystemTitle">ServAuto 门店系统</strong><span data-i18n="resourceSystemDesc">用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。</span></span>
+              <span class="tag" data-i18n="tagStoreSystem">门店系统</span>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      </section>
+    </main>
+
+  </div>
+
+  <script>
+    const translations = {
+      zh: {
+        brandTitle: "ServAuto 门店资料库",
+        brandSubtitle: "产品查询、利润查询、门店系统、SOP",
+        navProduct: "产品查询",
+        navProfit: "利润查询",
+        navSystem: "门店系统",
+        navSop: "标准作业 SOP",
+        heroEyebrow: "ServAuto 门店资料库",
+        heroSlogan: "Your Neighbourhood Auto Care Expert",
+        heroLead: "产品查询、利润查询、门店系统和 SOP 的统一入口。",
+        homeProductTitle: "产品查询",
+        homeProductDesc: "查询产品资料、价格信息、车型适配关系和配件信息，适合前台报价与技师确认。",
+        homeProductAction: "进入产品信息与价格查询",
+        homeProfitTitle: "利润查询",
+        homeProfitDesc: "门店老板或授权管理层查看利润分成、经营结果和相关数据，进入前需要密码。",
+        homeProfitAction: "进入利润分成查询",
+        homeSystemTitle: "门店系统",
+        homeSystemDesc: "进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。",
+        homeSystemAction: "进入门店系统",
+        homeSopTitle: "标准作业 SOP",
+        homeSopDesc: "门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
+        homeSopAction: "进入标准作业 SOP",
+        backHome: "返回首页",
+        detailDefault: "选择一个入口查看对应资料。",
+        moduleProductTitle: "产品信息与价格查询",
+        moduleProductDesc: "用于前台和技师查询产品资料、价格信息、车型适配关系和配件信息。",
+        resourceProductTitle: "产品信息与价格查询",
+        resourceProductDesc: "查询产品资料、价格、适配关系和车型对应配件，适合前台与技师使用。",
+        tagSystem: "系统",
+        moduleSopTitle: "标准作业 SOP",
+        moduleSopDesc: "用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
+        resourceTiktokDesc: "用于 TikTok 账号设置相关流程和资料查看。",
+        resourceChecklistDesc: "标准 20 项检查表，用于门店逐项检查、记录和复核。",
+        resourceTintScriptDesc: "隔热膜技师与前台员工的标准沟通话术。",
+        resourceServiceScriptDesc: "维修技师与前台员工的标准沟通话术。",
+        resourceOilChangeDesc: "机油保养服务的标准作业流程。",
+        resourceTintProcessDesc: "隔热膜施工流程与标准操作要求。",
+        resource6sTrainingDesc: "门店 6S 与“三不”基础培训。",
+        resource6sGroundingDesc: "6S 与“三不”落地规范培训。",
+        resourceMeetingDesc: "门店会议标准与执行要求。",
+        moduleProfitTitle: "利润分成查询",
+        moduleProfitDesc: "用于老板或授权管理层查看门店利润、分成规则和经营结果。",
+        resourceProfitTitle: "利润分成平台",
+        resourceProfitDesc: "仅限门店老板查看。进入前需要输入访问密码。",
+        tagPassword: "需密码",
+        moduleSystemTitle: "门店系统使用",
+        moduleSystemDesc: "用于进入门店系统查询订单，以及完成需要关闭的订单。",
+        resourceSystemTitle: "ServAuto 门店系统",
+        resourceSystemDesc: "用于订单查询和关闭订单。建议后续补充对应操作截图和常见问题。",
+        tagStoreSystem: "门店系统",
+        passwordPrompt: "请输入利润查询访问密码",
+        passwordError: "密码错误，无法进入利润查询。"
+      },
+      en: {
+        brandTitle: "ServAuto Store Knowledge Base",
+        brandSubtitle: "Product Search, Profit Search, Store System, SOP",
+        navProduct: "Product Search",
+        navProfit: "Profit Search",
+        navSystem: "Store System",
+        navSop: "Standard Operation SOP",
+        heroEyebrow: "ServAuto Knowledge Portal",
+        heroSlogan: "Your Neighbourhood Auto Care Expert",
+        heroLead: "One portal for product search, profit search, store system access, and SOP.",
+        homeProductTitle: "Product Search",
+        homeProductDesc: "Check product details, prices, vehicle fitment, and parts information for front desk quoting and technician confirmation.",
+        homeProductAction: "Open product and price search",
+        homeProfitTitle: "Profit Search",
+        homeProfitDesc: "For store owners or authorized managers to view profit sharing, operating results, and related data. Password required.",
+        homeProfitAction: "Open profit sharing search",
+        homeSystemTitle: "Store System",
+        homeSystemDesc: "Access the ServAuto store system for order search and order closing.",
+        homeSystemAction: "Open store system",
+        homeSopTitle: "Standard Operation SOP",
+        homeSopDesc: "Unified processes for store training, standardized reception, standardized construction, standardized checks, and hygiene standards.",
+        homeSopAction: "Open Standard Operation SOP",
+        backHome: "Back to Home",
+        detailDefault: "Choose a section to view related resources.",
+        moduleProductTitle: "Product and Price Search",
+        moduleProductDesc: "For front desk staff and technicians to check product details, prices, vehicle fitment, and parts information.",
+        resourceProductTitle: "Product and Price Search",
+        resourceProductDesc: "Search product details, prices, fitment, and vehicle-specific parts for front desk and technician use.",
+        tagSystem: "System",
+        moduleSopTitle: "Standard Operation SOP",
+        moduleSopDesc: "Unified processes for store training, standardized reception, standardized construction, standardized checks, and hygiene standards.",
+        resourceTiktokDesc: "TikTok account setup processes and reference materials.",
+        resourceChecklistDesc: "SP/Tint checklist for standard inspection, recording, and review.",
+        resourceTintScriptDesc: "Standard communication scripts for tint technicians and front desk staff.",
+        resourceServiceScriptDesc: "Standard communication scripts for service technicians and front desk staff.",
+        resourceOilChangeDesc: "Standard operating procedure for oil change service.",
+        resourceTintProcessDesc: "Tint construction process and standard operating requirements.",
+        resource6sTrainingDesc: "Basic 6S and Three-No training for stores.",
+        resource6sGroundingDesc: "Grounding regulation training for 6S and Three-No execution.",
+        resourceMeetingDesc: "Store meeting standards and execution requirements.",
+        moduleProfitTitle: "Profit Sharing Search",
+        moduleProfitDesc: "For owners or authorized managers to view store profit, sharing rules, and operating results.",
+        resourceProfitTitle: "Profit Sharing Platform",
+        resourceProfitDesc: "For store owners only. Access password is required before entry.",
+        tagPassword: "Password",
+        moduleSystemTitle: "Store System",
+        moduleSystemDesc: "Access the store system to search orders and close orders.",
+        resourceSystemTitle: "ServAuto Store System",
+        resourceSystemDesc: "For order search and order closing. Operation screenshots and FAQs can be added later.",
+        tagStoreSystem: "Store System",
+        passwordPrompt: "Enter the profit search password",
+        passwordError: "Incorrect password. Profit search cannot be opened."
+      }
+    };
+    let currentLang = "en";
+    const homeView = document.getElementById("home");
+    const moduleDetail = document.getElementById("moduleDetail");
+    const moduleGrid = document.getElementById("resources");
+    const detailHint = document.getElementById("detailHint");
+    const moduleLabelKeys = {
+      product: "moduleProductTitle",
+      profit: "moduleProfitTitle",
+      system: "moduleSystemTitle",
+      sop: "moduleSopTitle"
+    };
+
+    function t(key) {
+      return translations[currentLang][key] || translations.zh[key] || key;
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("servautoLang", lang);
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+      document.title = t("brandTitle");
+      document.querySelectorAll("[data-i18n]").forEach((item) => {
+        item.textContent = t(item.dataset.i18n);
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((item) => {
+        item.placeholder = t(item.dataset.i18nPlaceholder);
+      });
+      document.getElementById("langToggle").textContent = lang === "zh" ? "English" : "中文";
+      const activeModule = document.querySelector(".module.active");
+      if (activeModule) {
+        detailHint.textContent = t(moduleLabelKeys[activeModule.id]);
+      } else {
+        detailHint.textContent = t("detailDefault");
+      }
+    }
+
+    function openModule(moduleId, updateHash = true) {
+      const module = document.getElementById(moduleId);
+      if (!module || !moduleLabelKeys[moduleId]) return;
+      homeView.classList.add("hidden");
+      moduleDetail.classList.remove("hidden");
+      moduleGrid.classList.add("is-filtered");
+      document.querySelectorAll(".module").forEach((item) => item.classList.remove("active"));
+      module.classList.add("active");
+      detailHint.textContent = t(moduleLabelKeys[moduleId]);
+      if (updateHash) history.replaceState(null, "", `#${moduleId}`);
+      moduleDetail.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function showHome(updateHash = true) {
+      moduleDetail.classList.add("hidden");
+      homeView.classList.remove("hidden");
+      moduleGrid.classList.remove("is-filtered");
+      document.querySelectorAll(".module").forEach((item) => item.classList.remove("active"));
+      detailHint.textContent = t("detailDefault");
+      if (updateHash) history.replaceState(null, "", "#top");
+      homeView.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll("[data-open-module]").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        openModule(item.dataset.openModule);
+      });
+    });
+
+    document.getElementById("backHome").addEventListener("click", () => showHome());
+
+    document.querySelectorAll("[data-home-link]").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        event.preventDefault();
+        showHome();
+      });
+    });
+
+    document.getElementById("langToggle").addEventListener("click", () => {
+      applyLanguage(currentLang === "zh" ? "en" : "zh");
+    });
+
+    applyLanguage(currentLang);
+
+    const initialModule = window.location.hash.replace("#", "");
+    if (moduleLabelKeys[initialModule]) {
+      openModule(initialModule, false);
+    }
+
+    document.querySelectorAll("[data-protected-url]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const password = window.prompt(t("passwordPrompt"));
+        if (password === null) return;
+        if (password.trim() === "servauto") {
+          window.location.href = link.dataset.protectedUrl;
+        } else {
+          window.alert(t("passwordError"));
+        }
+      });
+    });
+  </script>
+</body>
+</html>
