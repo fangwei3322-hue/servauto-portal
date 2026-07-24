@@ -563,7 +563,7 @@
           <a href="#profit" data-open-module="profit" data-i18n="navProfit">利润查询</a>
           <a href="#system" data-open-module="system" data-i18n="navSystem">门店系统</a>
           <a href="#sop" data-open-module="sop" data-i18n="navSop">SOP</a>
-          <button class="lang-toggle" type="button" id="langToggle">EN</button>
+          <button class="lang-toggle" type="button" id="langToggle">中文</button>
         </nav>
       </div>
     </header>
@@ -734,7 +734,7 @@
         navProduct: "产品查询",
         navProfit: "利润查询",
         navSystem: "门店系统",
-        navSop: "Standard Operation SOP",
+        navSop: "标准作业 SOP",
         heroEyebrow: "ServAuto 门店资料库",
         heroSlogan: "Your Neighbourhood Auto Care Expert",
         heroLead: "产品查询、利润查询、门店系统和 SOP 的统一入口。",
@@ -747,9 +747,9 @@
         homeSystemTitle: "门店系统",
         homeSystemDesc: "进入 ServAuto 门店系统，用于订单查询和关闭订单，方便门店处理日常订单状态。",
         homeSystemAction: "进入门店系统",
-        homeSopTitle: "Standard Operation SOP",
+        homeSopTitle: "标准作业 SOP",
         homeSopDesc: "门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
-        homeSopAction: "进入 Standard Operation SOP",
+        homeSopAction: "进入标准作业 SOP",
         backHome: "返回首页",
         detailDefault: "选择一个入口查看对应资料。",
         moduleProductTitle: "产品信息与价格查询",
@@ -757,7 +757,7 @@
         resourceProductTitle: "产品信息与价格查询",
         resourceProductDesc: "查询产品资料、价格、适配关系和车型对应配件，适合前台与技师使用。",
         tagSystem: "系统",
-        moduleSopTitle: "Standard Operation SOP",
+        moduleSopTitle: "标准作业 SOP",
         moduleSopDesc: "用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
         resourceTiktokDesc: "用于 TikTok 账号设置相关流程和资料查看。",
         resourceChecklistDesc: "标准 20 项检查表，用于门店逐项检查、记录和复核。",
@@ -862,7 +862,7 @@
       document.querySelectorAll("[data-i18n-placeholder]").forEach((item) => {
         item.placeholder = t(item.dataset.i18nPlaceholder);
       });
-      document.getElementById("langToggle").textContent = lang === "zh" ? "EN" : "中";
+      document.getElementById("langToggle").textContent = lang === "zh" ? "English" : "中文";
       const activeModule = document.querySelector(".module.active");
       if (activeModule) {
         detailHint.textContent = t(moduleLabelKeys[activeModule.id]);
