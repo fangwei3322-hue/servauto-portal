@@ -434,6 +434,81 @@
       font-weight: 700;
     }
 
+    .sop-board {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      background: #fbfdff;
+    }
+
+    .sop-group {
+      min-height: 140px;
+      padding: 16px;
+      border: 1px solid #d8e0e8;
+      border-radius: 8px;
+      background: #f7f8fa;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .sop-group.wide {
+      grid-column: span 2;
+    }
+
+    .sop-group-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .sop-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #fff;
+      background: #5b62e8;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 6px 16px rgba(91, 98, 232, 0.24);
+    }
+
+    .sop-group h5 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+
+    .sop-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .sop-group:not(.wide) .sop-items {
+      grid-template-columns: 1fr;
+    }
+
+    .sop-link {
+      min-height: 38px;
+      padding: 10px 12px;
+      grid-template-columns: 1fr;
+      gap: 0;
+      background: #fff;
+      border-color: #dfe5ec;
+      box-shadow: 0 4px 12px rgba(18, 38, 63, 0.05);
+    }
+
+    .sop-link .resource-title strong {
+      color: #41516b;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -496,6 +571,10 @@
       .home-grid {
         grid-template-columns: 1fr;
       }
+
+      .sop-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 560px) {
@@ -543,6 +622,20 @@
 
       .tag {
         width: fit-content;
+      }
+
+      .sop-board {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+
+      .sop-group,
+      .sop-group.wide {
+        grid-column: auto;
+      }
+
+      .sop-items {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -648,43 +741,87 @@
               <p class="desc" data-i18n="moduleSopDesc">用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。</p>
             </div>
           </div>
-          <div class="link-list">
-            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener" data-keywords="Tiktok Account setup wiki 账号 设置 sop">
-              <span class="resource-title"><strong>Tiktok Account setup</strong><span data-i18n="resourceTiktokDesc">用于 TikTok 账号设置相关流程和资料查看。</span></span>
-              <span class="tag">Lark Wiki</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/wiki/Sdhzwftqkiyk2HkvYKvlXipZgyb?sheet=333b41" target="_blank" rel="noopener" data-keywords="checklist-sp/Tint 标准检查表 检查表 sop 表格 wiki">
-              <span class="resource-title"><strong>checklist-sp/Tint</strong><span data-i18n="resourceChecklistDesc">标准 20 项检查表，用于门店逐项检查、记录和复核。</span></span>
-              <span class="tag">Lark Wiki</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Dmv5s9ruVlA2KAdfO2Wl2nCMg5g" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Tint Technicians Front Desk Staff slides sop 培训 话术 前台 技师 隔热膜">
-              <span class="resource-title"><strong>Standardized Communication Scripts for Tint Technicians & Front Desk Staff</strong><span data-i18n="resourceTintScriptDesc">隔热膜技师与前台员工的标准沟通话术。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/LbZ8sePi2lrqAeduifGlZM2Bg4r" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Service Technicians Front Desk Staff slides sop 培训 话术 前台 维修技师">
-              <span class="resource-title"><strong>Standardized Communication Scripts for Service Technicians & Front Desk Staff</strong><span data-i18n="resourceServiceScriptDesc">维修技师与前台员工的标准沟通话术。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/Q4yNsi7mVlT6uodxVWtl3F2JgHb" target="_blank" rel="noopener" data-keywords="ServAuto SOP Service Oil Change slides sop 保养 换油 机油">
-              <span class="resource-title"><strong>ServAuto SOP Service Oil Change</strong><span data-i18n="resourceOilChangeDesc">机油保养服务的标准作业流程。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/R4Plst9l5lHrH1dnuxQls8pEgCe" target="_blank" rel="noopener" data-keywords="ServAuto SOP Tint Construction Process slides sop 贴膜 隔热膜 施工流程">
-              <span class="resource-title"><strong>ServAuto SOP Tint Construction Process</strong><span data-i18n="resourceTintProcessDesc">隔热膜施工流程与标准操作要求。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/YrousN946lZ6T7dezdnl2b8xgIb" target="_blank" rel="noopener" data-keywords="6S Three No Training slides sop 培训 6s 三不">
-              <span class="resource-title"><strong>6S / Three-No Training</strong><span data-i18n="resource6sTrainingDesc">门店 6S 与“三不”基础培训。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/ZieOsSpxElf3ogdZdD6lGDjsgrg" target="_blank" rel="noopener" data-keywords="6S Three-No Grounding Regulation Training slides sop 培训 6s 三不 落地规范">
-              <span class="resource-title"><strong>6S and Three-No Grounding Regulation Training</strong><span data-i18n="resource6sGroundingDesc">6S 与“三不”落地规范培训。</span></span>
-              <span class="tag">Slides</span>
-            </a>
-            <a class="resource" href="https://servauto.sg.larksuite.com/slides/RpAbsYzDGlh0Pxdkdtrlfj7kgPQ" target="_blank" rel="noopener" data-keywords="ServAuto Meeting Requirements slides sop 会议 要求">
-              <span class="resource-title"><strong>ServAuto Meeting Requirements</strong><span data-i18n="resourceMeetingDesc">门店会议标准与执行要求。</span></span>
-              <span class="tag">Slides</span>
-            </a>
+          <div class="sop-board">
+            <section class="sop-group">
+              <div class="sop-group-head">
+                <span class="sop-number">1</span>
+                <h5 data-i18n="sopGroupMarketing">Marketing Setup</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/wiki/Dg6pwIwAIigwEGkvKQol4PVEgtf" target="_blank" rel="noopener" data-keywords="Tiktok Account setup wiki 账号 设置 sop">
+                  <span class="resource-title"><strong data-i18n="sopTiktokTitle">TikTok Account Setup</strong></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="sop-group">
+              <div class="sop-group-head">
+                <span class="sop-number">2</span>
+                <h5 data-i18n="sopGroupChecklist">Quality Checklists</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/wiki/Sdhzwftqkiyk2HkvYKvlXipZgyb?sheet=333b41" target="_blank" rel="noopener" data-keywords="checklist-sp/Tint 标准检查表 检查表 sop 表格 wiki">
+                  <span class="resource-title"><strong data-i18n="sopChecklistTitle">SP / Tint Checklist</strong></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="sop-group">
+              <div class="sop-group-head">
+                <span class="sop-number">3</span>
+                <h5 data-i18n="sopGroupScripts">Communication Scripts</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/Dmv5s9ruVlA2KAdfO2Wl2nCMg5g" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Tint Technicians Front Desk Staff slides sop 培训 话术 前台 技师 隔热膜">
+                  <span class="resource-title"><strong data-i18n="sopTintScriptTitle">Tint Techs & Front Desk</strong></span>
+                </a>
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/LbZ8sePi2lrqAeduifGlZM2Bg4r" target="_blank" rel="noopener" data-keywords="Standardized Communication Scripts Service Technicians Front Desk Staff slides sop 培训 话术 前台 维修技师">
+                  <span class="resource-title"><strong data-i18n="sopServiceScriptTitle">Service Techs & Front Desk</strong></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="sop-group">
+              <div class="sop-group-head">
+                <span class="sop-number">4</span>
+                <h5 data-i18n="sopGroupProcedures">Service Procedures</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/Q4yNsi7mVlT6uodxVWtl3F2JgHb" target="_blank" rel="noopener" data-keywords="ServAuto SOP Service Oil Change slides sop 保养 换油 机油">
+                  <span class="resource-title"><strong data-i18n="sopOilChangeTitle">Oil Change SOP</strong></span>
+                </a>
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/R4Plst9l5lHrH1dnuxQls8pEgCe" target="_blank" rel="noopener" data-keywords="ServAuto SOP Tint Construction Process slides sop 贴膜 隔热膜 施工流程">
+                  <span class="resource-title"><strong data-i18n="sopTintProcessTitle">Tint Construction Process</strong></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="sop-group wide">
+              <div class="sop-group-head">
+                <span class="sop-number">5</span>
+                <h5 data-i18n="sopGroupTraining">Training & Compliance</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/YrousN946lZ6T7dezdnl2b8xgIb" target="_blank" rel="noopener" data-keywords="6S Three No Training slides sop 培训 6s 三不">
+                  <span class="resource-title"><strong data-i18n="sop6sTrainingTitle">6S / Three-No Training</strong></span>
+                </a>
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/ZieOsSpxElf3ogdZdD6lGDjsgrg" target="_blank" rel="noopener" data-keywords="6S Three-No Grounding Regulation Training slides sop 培训 6s 三不 落地规范">
+                  <span class="resource-title"><strong data-i18n="sop6sGroundingTitle">6S / Three-No Grounding Reg.</strong></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="sop-group wide">
+              <div class="sop-group-head">
+                <span class="sop-number">6</span>
+                <h5 data-i18n="sopGroupManagement">Store Management</h5>
+              </div>
+              <div class="sop-items">
+                <a class="resource sop-link" href="https://servauto.sg.larksuite.com/slides/RpAbsYzDGlh0Pxdkdtrlfj7kgPQ" target="_blank" rel="noopener" data-keywords="ServAuto Meeting Requirements slides sop 会议 要求">
+                  <span class="resource-title"><strong data-i18n="sopMeetingTitle">Meeting Requirements</strong></span>
+                </a>
+              </div>
+            </section>
           </div>
         </section>
 
@@ -763,6 +900,21 @@
         tagSystem: "系统",
         moduleSopTitle: "标准作业 SOP",
         moduleSopDesc: "用于门店培训、标准化接待、标准化施工、标准化检查、卫生标准等统一流程。",
+        sopGroupMarketing: "营销设置",
+        sopGroupChecklist: "质量检查表",
+        sopGroupScripts: "沟通话术",
+        sopGroupProcedures: "服务流程",
+        sopGroupTraining: "培训与规范",
+        sopGroupManagement: "门店管理",
+        sopTiktokTitle: "TikTok 账号设置",
+        sopChecklistTitle: "SP / Tint 检查表",
+        sopTintScriptTitle: "贴膜技师与前台",
+        sopServiceScriptTitle: "维修技师与前台",
+        sopOilChangeTitle: "机油保养 SOP",
+        sopTintProcessTitle: "贴膜施工流程",
+        sop6sTrainingTitle: "6S / 三不培训",
+        sop6sGroundingTitle: "6S / 三不落地规范",
+        sopMeetingTitle: "会议要求",
         resourceTiktokDesc: "用于 TikTok 账号设置相关流程和资料查看。",
         resourceChecklistDesc: "标准 20 项检查表，用于门店逐项检查、记录和复核。",
         resourceTintScriptDesc: "隔热膜技师与前台员工的标准沟通话术。",
@@ -819,6 +971,21 @@
         tagSystem: "System",
         moduleSopTitle: "Standard Operation SOP",
         moduleSopDesc: "Unified processes for store training, standardized reception, standardized construction, standardized checks, and hygiene standards.",
+        sopGroupMarketing: "Marketing Setup",
+        sopGroupChecklist: "Quality Checklists",
+        sopGroupScripts: "Communication Scripts",
+        sopGroupProcedures: "Service Procedures",
+        sopGroupTraining: "Training & Compliance",
+        sopGroupManagement: "Store Management",
+        sopTiktokTitle: "TikTok Account Setup",
+        sopChecklistTitle: "SP / Tint Checklist",
+        sopTintScriptTitle: "Tint Techs & Front Desk",
+        sopServiceScriptTitle: "Service Techs & Front Desk",
+        sopOilChangeTitle: "Oil Change SOP",
+        sopTintProcessTitle: "Tint Construction Process",
+        sop6sTrainingTitle: "6S / Three-No Training",
+        sop6sGroundingTitle: "6S / Three-No Grounding Reg.",
+        sopMeetingTitle: "Meeting Requirements",
         resourceTiktokDesc: "TikTok account setup processes and reference materials.",
         resourceChecklistDesc: "SP/Tint checklist for standard inspection, recording, and review.",
         resourceTintScriptDesc: "Standard communication scripts for tint technicians and front desk staff.",
