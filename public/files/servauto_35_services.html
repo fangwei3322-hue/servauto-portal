@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServAuto 35 Services</title>
+  <style>
+    :root {
+      --blue: #135ca8;
+      --blue-dark: #0b2545;
+      --red: #d81e2f;
+      --line: #c8d4e3;
+      --muted: #5a6b82;
+      --soft-blue: #eaf3ff;
+      --soft-red: #fff0f2;
+      --row: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Calibri, Arial, "Microsoft YaHei", sans-serif;
+      color: var(--blue-dark);
+      background: #f3f6fa;
+    }
+    .page {
+      width: min(1400px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 36px;
+    }
+    .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(11, 37, 69, 0.08);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+    h1 span { color: var(--red); }
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex: 0 0 auto;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .button.secondary {
+      background: #fff;
+      color: var(--blue);
+    }
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+    .note {
+      padding: 12px 14px;
+      border: 1px solid #d6e3f2;
+      border-radius: 8px;
+      background: var(--soft-blue);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .note:last-child { background: var(--soft-red); }
+    .note strong { color: var(--blue); }
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 14px 34px rgba(11, 37, 69, 0.08);
+    }
+    table {
+      width: 100%;
+      min-width: 1160px;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 10px 8px;
+      color: #fff;
+      background: var(--blue);
+      border-right: 1px solid rgba(255, 255, 255, 0.24);
+      text-align: center;
+      line-height: 1.25;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 8px 8px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      vertical-align: middle;
+      line-height: 1.3;
+      background: #fff;
+    }
+    tbody tr.alt td { background: var(--row); }
+    tbody tr.group-start td {
+      border-top: 2px solid var(--blue);
+    }
+    td.label {
+      text-align: left;
+      min-width: 120px;
+    }
+    td.label strong {
+      display: block;
+      color: var(--blue-dark);
+      font-size: 13px;
+    }
+    td.label span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    td.price {
+      color: var(--red);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    td.yes {
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .footnote {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    @media (max-width: 760px) {
+      .top {
+        flex-direction: column;
+      }
+      .actions {
+        justify-content: flex-start;
+      }
+      .notes {
+        grid-template-columns: 1fr;
+      }
+      .page {
+        width: min(100% - 20px, 1400px);
+        padding-top: 14px;
+      }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; }
+      .top, .note, .table-wrap { box-shadow: none; }
+      .actions { display: none; }
+      thead th { position: static; }
+      table { min-width: 0; font-size: 9px; }
+      tbody td { padding: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="top">
+      <div>
+        <h1>ServAuto 35 Services <span>Standardized Reference</span></h1>
+        <p class="subtitle">Service item list, starting price, labor fee matrix, and workshop availability for internal store use.</p>
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="../#sop">Back to SOP</a>
+        <a class="button" href="ServAuto_35_Services_Standardized.docx">Download Word</a>
+      </div>
+    </section>
+    <section class="notes">
+      <div class="note"><strong>Scope:</strong> 35 service items / 35 项服务</div>
+      <div class="note"><strong>Vehicle Groups:</strong> JP = Japanese models, CONTI = Continental models</div>
+      <div class="note"><strong>Legend:</strong> Yes = Available in the workshop category</div>
+    </section>
+    <section class="table-wrap" aria-label="ServAuto 35 Services Table">
+      <table>
+        <thead>
+          <tr><th>Category<br>类目</th><th>Service Item<br>服务项目</th><th>Price From<br>售价起</th><th>S-JP</th><th>M-JP</th><th>L-JP</th><th>S-CONTI</th><th>M-CONTI</th><th>L-CONTI</th><th>Service<br>Workshop</th><th>Service+Tire<br>Workshop</th></tr>
+        </thead>
+        <tbody>
+          <tr class="service-row group-start"><td class="label">Tires
+轮胎</td><td class="label">Tire Replacement
+更换轮胎</td><td class="price">RM200</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td></td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Tires
+轮胎</td><td class="label">Tire Repair
+轮胎修补</td><td class="price">RM49</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Tires
+轮胎</td><td class="label">Wheel Balancing
+轮胎动平衡</td><td class="price">RM10</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td></td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Fluids
+油液</td><td class="label">Engine Oil Change
+更换机油</td><td class="price">RM169</td><td>30</td><td>40</td><td>50</td><td>40</td><td>50</td><td>60</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Fluids
+油液</td><td class="label">Coolant Replacement
+更换冷却液</td><td class="price">RM60</td><td>15</td><td>20</td><td>25</td><td>20</td><td>25</td><td>30</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Fluids
+油液</td><td class="label">Brake Fluid Replacement
+更换制动液</td><td class="price">RM50</td><td>45</td><td>50</td><td>55</td><td>50</td><td>55</td><td>65</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Fluids
+油液</td><td class="label">Power Steering Fluid Replacement
+更换转向助力油</td><td class="price">RM50</td><td>30</td><td>40</td><td>50</td><td>40</td><td>50</td><td>60</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Fluids
+油液</td><td class="label">Transmission Fluid Change
+更换变速箱油</td><td class="price">RM180</td><td>30</td><td>40</td><td>50</td><td>40</td><td>50</td><td>60</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start"><td class="label">Filters
+滤芯</td><td class="label">External Fuel Filter Replacement
+更换外置燃油滤清器</td><td class="price">RM60</td><td>10</td><td>15</td><td>20</td><td>15</td><td>20</td><td>25</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Filters
+滤芯</td><td class="label">Transmission Filter Replacement
+更换变速箱滤芯</td><td class="price">RM90</td><td>45</td><td>55</td><td>65</td><td>55</td><td>65</td><td>75</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Filters
+滤芯</td><td class="label">Oil Filter Replacement
+更换机油滤清器</td><td class="price">RM30</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Filters
+滤芯</td><td class="label">Cabin Air Filter Replacement
+更换空调滤芯</td><td class="price">RM30</td><td>10</td><td>15</td><td>20</td><td>15</td><td>20</td><td>25</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Filters
+滤芯</td><td class="label">Engine Air Filter Replacement
+更换空气滤芯</td><td class="price">RM30</td><td>10</td><td>15</td><td>20</td><td>15</td><td>20</td><td>25</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Spark Plugs
+火花塞</td><td class="label">Spark Plug Replacement
+更换火花塞</td><td class="price">RM80</td><td>5</td><td>5</td><td>10</td><td>10</td><td>10</td><td>15</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start"><td class="label">Bulbs
+灯泡</td><td class="label">Bulb Replacement
+更换灯泡</td><td class="price">RM10</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Battery
+蓄电池</td><td class="label">Battery Replacement
+更换蓄电池</td><td class="price">RM250</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start"><td class="label">Belts
+皮带</td><td class="label">Engine Belt Replacement
+更换发动机皮带</td><td class="price">RM70</td><td>35</td><td>50</td><td>75</td><td>80</td><td>120</td><td>150</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Windshield Washer Fluid
+玻璃水</td><td class="label">Windshield Washer Fluid Top-Up
+玻璃水添加</td><td class="price">RM10</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start"><td class="label">Wiper Blades
+雨刮片</td><td class="label">Wiper Blade Replacement
+更换雨刮片</td><td class="price">RM79</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Cleaning &amp; Maintenance
+清洗养护类</td><td class="label">Lubrication System Cleaning &amp; Lubrication
+润滑系统清洗和润滑</td><td class="price">RM58</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Cleaning &amp; Maintenance
+清洗养护类</td><td class="label">Throttle Body Cleaning
+节气门清洗</td><td class="price">RM30</td><td>10</td><td>15</td><td>20</td><td>15</td><td>20</td><td>25</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Cleaning &amp; Maintenance
+清洗养护类</td><td class="label">Evaporator Visual Cleaning
+蒸发箱可视化清洗</td><td class="price">RM199</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Cleaning &amp; Maintenance
+清洗养护类</td><td class="label">Brake System Maintenance
+制动系统养护</td><td class="price">RM199</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row group-start alt"><td class="label">Chassis
+底盘</td><td class="label">Four-Wheel Alignment
+四轮定位</td><td class="price">RM60</td><td>45</td><td>50</td><td>60</td><td>70</td><td>80</td><td>90</td><td></td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Shock Absorber Replacement
+更换减震器</td><td class="price">RM219</td><td>30</td><td>40</td><td>50</td><td>60</td><td>80</td><td>110</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Chassis
+底盘</td><td class="label">Shock Absorber Mount &amp; Strut Bearing Replacement
+更换减震器顶胶、平面轴承</td><td class="price">RM80</td><td>30</td><td>40</td><td>50</td><td>60</td><td>80</td><td>110</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Shock Absorber Dust Boot &amp; Bump Stop Replacement
+更换减震器防尘套、缓冲块</td><td class="price">RM80</td><td>30</td><td>40</td><td>50</td><td>60</td><td>80</td><td>110</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Chassis
+底盘</td><td class="label">Stabilizer Bar Link Replacement
+更换平衡杆球头（小拉杆）</td><td class="price">RM70</td><td>15</td><td>20</td><td>25</td><td>30</td><td>40</td><td>50</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Stabilizer Bar Bushing Replacement
+更换平衡杆胶套</td><td class="price">RM60</td><td>30</td><td>40</td><td>50</td><td>60</td><td>80</td><td>100</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Chassis
+底盘</td><td class="label">Lower Control Arm Ball Joint Replacement
+更换下支臂球头</td><td class="price">RM150</td><td>25</td><td>35</td><td>45</td><td>60</td><td>80</td><td>100</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Lower Control Arm Bushing/Assembly Replacement
+更换下支臂胶套/总成</td><td class="price">RM120</td><td>45</td><td>50</td><td>55</td><td>60</td><td>80</td><td>100</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Chassis
+底盘</td><td class="label">Outer Tie Rod End Replacement
+更换方向机外球头</td><td class="price">RM60</td><td>25</td><td>30</td><td>35</td><td>50</td><td>60</td><td>75</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Inner Tie Rod End Replacement
+更换方向机内球头</td><td class="price">RM80</td><td>30</td><td>40</td><td>50</td><td>60</td><td>80</td><td>100</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row alt"><td class="label">Chassis
+底盘</td><td class="label">Brake Disc Replacement
+更换刹车盘</td><td class="price">RM150</td><td>30</td><td>40</td><td>50</td><td>40</td><td>50</td><td>60</td><td class="yes">Yes</td><td class="yes">Yes</td></tr><tr class="service-row"><td class="label">Chassis
+底盘</td><td class="label">Brake Pad Replacement
+更换刹车片</td><td class="price">RM70</td><td>30</td><td>40</td><td>50</td><td>40</td><td>50</td><td>60</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <p class="footnote">For internal ServAuto store training and service reference. Please confirm live pricing and parts availability before customer confirmation.</p>
+  </main>
+</body>
+</html>
